@@ -1,34 +1,37 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import './App.css'
+import { gql } from "./__generated__";
+import { useQuery } from "@apollo/client";
+import { StoryType } from "./__generated__/graphql";
+
+const STORIES = gql(`
+  query GetStories($type: StoryType) {
+    getStories(type: $type) {
+      id
+      by
+      title
+      kids
+      time
+      score
+      url
+    }
+  }
+`);
 
 function App() {
-  const [count, setCount] = useState(0)
-
+  const { loading, error, data } = useQuery(STORIES, {
+    variables: { type: StoryType.Top }, // Here, 'type' is the variable name and 'top' is the value
+  });
+  if (loading) return "Loading...";
+  if (error) return `Error! ${error.message}`;
   return (
-    <div className="App">
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src="/vite.svg" className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://reactjs.org" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </div>
-  )
+    <>
+      <h1>Top Stories : </h1>
+      <ul>
+        {data?.getStories?.map((story) => (
+          <li key={story.id}>{JSON.stringify(story)}</li>
+        ))}
+      </ul>
+    </>
+  );
 }
 
-export default App
+export default App;
