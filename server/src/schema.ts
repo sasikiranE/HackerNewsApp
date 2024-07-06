@@ -10,6 +10,9 @@ export const typeDefs = gql`
     new
     best
     top
+    ask
+    show
+    job
   }
 
   type Story {
