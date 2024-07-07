@@ -20,7 +20,7 @@ function App() {
   return (
     <>
       <Grid templateAreas={`"nav" "main"`}>
-        <GridItem bg={useColorModeValue("gray.100", "gray.900")} area={"nav"}>
+        <GridItem bg={useColorModeValue("gray.100", "gray.700")} area={"nav"}>
           <NavBar
             types={storyTypes}
             onSelectType={(type) => setSelectedStoryType(type)}
