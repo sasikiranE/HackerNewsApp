@@ -11,7 +11,17 @@ import { ChevronRightIcon } from "@chakra-ui/icons";
 import logo from "../assets/logo.svg";
 import ColorModeButton from "./ColorModeButton";
 
-const NavBar = () => {
+interface Props {
+  types: string[];
+  onSelectType: (type: string) => void;
+  selectedType: string;
+}
+
+const NavBar: React.FC<Props> = ({
+  types,
+  onSelectType,
+  selectedType,
+}: Props) => {
   return (
     <>
       <HStack padding="10px" justifyContent="space-between">
@@ -22,24 +32,13 @@ const NavBar = () => {
             spacing="10px"
             separator={<ChevronRightIcon color="gray.500" />}
           >
-            <BreadcrumbItem>
-              <BreadcrumbLink href="#">New</BreadcrumbLink>
-            </BreadcrumbItem>
-            <BreadcrumbItem>
-              <BreadcrumbLink href="#">Top</BreadcrumbLink>
-            </BreadcrumbItem>
-            <BreadcrumbItem>
-              <BreadcrumbLink href="#">Best</BreadcrumbLink>
-            </BreadcrumbItem>
-            <BreadcrumbItem>
-              <BreadcrumbLink href="#">Ask</BreadcrumbLink>
-            </BreadcrumbItem>
-            <BreadcrumbItem>
-              <BreadcrumbLink href="#">Show</BreadcrumbLink>
-            </BreadcrumbItem>
-            <BreadcrumbItem>
-              <BreadcrumbLink href="#">Jobs</BreadcrumbLink>
-            </BreadcrumbItem>
+            {types.map((type) => (
+              <BreadcrumbItem key={type} isCurrentPage={type === selectedType}>
+                <BreadcrumbLink href="#" onClick={() => onSelectType(type)}>
+                  {type.charAt(0).toUpperCase() + type.slice(1)}
+                </BreadcrumbLink>
+              </BreadcrumbItem>
+            ))}
           </Breadcrumb>
         </HStack>
 

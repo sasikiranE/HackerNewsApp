@@ -17,16 +17,16 @@ const STORIES = gql(`
     }
   `);
 
-const StoryGrid = () => {
+const StoryGrid: React.FC<{ type: string }> = ({ type }) => {
   const { loading, error, data } = useQuery(STORIES, {
-    variables: { type: StoryType.New }, // Here, 'type' is the variable name and 'top' is the value
+    variables: { type: type }, // Here, 'type' is the variable name and 'top' is the value
   });
   if (loading) return <Spinner></Spinner>;
   if (error) return `Error! ${error.message}`;
   return (
     <SimpleGrid columns={1} spacing={10} padding="10px">
       {data?.getStories?.map((story: Story) => (
-        <StoryCard story={story} />
+        <StoryCard key={story.id} story={story} />
       ))}
     </SimpleGrid>
   );
