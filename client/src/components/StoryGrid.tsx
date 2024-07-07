@@ -24,7 +24,7 @@ const StoryGrid: React.FC<{ type: string }> = ({ type }) => {
   if (loading) return <Spinner></Spinner>;
   if (error) return `Error! ${error.message}`;
   return (
-    <SimpleGrid columns={1} spacing={10} padding="10px">
+    <SimpleGrid columns={1} spacing={2} padding="10px">
       {data?.getStories?.map((story: Story) => (
         <StoryCard key={story.id} story={story} />
       ))}
