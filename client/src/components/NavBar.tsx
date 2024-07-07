@@ -1,9 +1,9 @@
 import {
   Breadcrumb,
   BreadcrumbItem,
-  BreadcrumbLink,
   Image,
   HStack,
+  Button,
 } from "@chakra-ui/react";
 
 import { ChevronRightIcon } from "@chakra-ui/icons";
@@ -34,9 +34,13 @@ const NavBar: React.FC<Props> = ({
           >
             {types.map((type) => (
               <BreadcrumbItem key={type} isCurrentPage={type === selectedType}>
-                <BreadcrumbLink href="#" onClick={() => onSelectType(type)}>
+                <Button
+                  onClick={() => onSelectType(type)}
+                  variant={type === selectedType ? "solid" : "ghost"}
+                  textDecoration={type == selectedType ? "underline" : ""}
+                >
                   {type.charAt(0).toUpperCase() + type.slice(1)}
-                </BreadcrumbLink>
+                </Button>
               </BreadcrumbItem>
             ))}
           </Breadcrumb>
