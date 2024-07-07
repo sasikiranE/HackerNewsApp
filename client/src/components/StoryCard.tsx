@@ -3,7 +3,12 @@ import type { Story } from "../__generated__/graphql";
 
 const StoryCard: React.FC<{ story: Story }> = ({ story }) => {
   const { title, score, by, kids, url, time } = story;
-  const formattedTime = time ? new Date(time * 1000).toLocaleDateString() : "";
+  const formattedTime = time
+    ? new Date(time * 1000).toLocaleDateString("en-US", {
+        hour: "numeric",
+        minute: "numeric",
+      })
+    : "";
 
   const handleClick = () => {
     if (url) {
